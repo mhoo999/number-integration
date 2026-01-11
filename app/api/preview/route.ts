@@ -17,7 +17,18 @@ export async function POST(request: NextRequest) {
     }
 
     const arrayBuffer = await file.arrayBuffer()
-    const workbook = XLSX.read(arrayBuffer, { type: 'array' })
+    const fileName = file.name
+    const fileExtension = fileName.split('.').pop()?.toLowerCase() || 'xlsx'
+    const isCsv = fileExtension === 'csv'
+    
+    let workbook: XLSX.WorkBook
+    if (isCsv) {
+      // CSV 파일 처리
+      const text = new TextDecoder('utf-8').decode(arrayBuffer)
+      workbook = XLSX.read(text, { type: 'string' })
+    } else {
+      workbook = XLSX.read(arrayBuffer, { type: 'array' })
+    }
     const sheetName = workbook.SheetNames[0]
     const worksheet = workbook.Sheets[sheetName]
     const data = XLSX.utils.sheet_to_json(worksheet, { header: 1 }) as any[][]

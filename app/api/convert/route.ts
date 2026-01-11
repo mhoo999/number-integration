@@ -17,7 +17,21 @@ export async function POST(request: NextRequest) {
     }
 
     const arrayBuffer = await file.arrayBuffer()
-    const workbook = XLSX.read(arrayBuffer, { type: 'array' })
+    
+    // 원본 파일 확장자 확인
+    const fileName = file.name
+    const fileExtension = fileName.split('.').pop()?.toLowerCase() || 'xlsx'
+    const isXls = fileExtension === 'xls'
+    const isCsv = fileExtension === 'csv'
+    
+    let workbook: XLSX.WorkBook
+    if (isCsv) {
+      // CSV 파일 처리
+      const text = new TextDecoder('utf-8').decode(arrayBuffer)
+      workbook = XLSX.read(text, { type: 'string', cellDates: true })
+    } else {
+      workbook = XLSX.read(arrayBuffer, { type: 'array', cellDates: true })
+    }
     const sheetName = workbook.SheetNames[0]
     const worksheet = workbook.Sheets[sheetName]
     const data = XLSX.utils.sheet_to_json(worksheet, { header: 1 }) as any[][]
@@ -56,17 +70,40 @@ export async function POST(request: NextRequest) {
     const newWorksheet = XLSX.utils.aoa_to_sheet(result)
     XLSX.utils.book_append_sheet(newWorkbook, newWorksheet, sheetName)
 
-    // 엑셀 파일 생성
-    const excelBuffer = XLSX.write(newWorkbook, {
-      type: 'buffer',
-      bookType: 'xlsx',
-    })
+    // 원본 파일 형식에 맞춰 출력
+    let bookType: 'xls' | 'xlsx' | 'csv'
+    let outputFileName: string
+    let contentType: string
+    
+    if (isCsv) {
+      bookType = 'csv'
+      outputFileName = fileName.replace(/\.csv$/i, '_normalized.csv')
+      contentType = 'text/csv; charset=utf-8'
+    } else if (isXls) {
+      bookType = 'xls'
+      outputFileName = fileName.replace(/\.(xlsx|xls)$/i, '_normalized.xls')
+      contentType = 'application/vnd.ms-excel'
+    } else {
+      bookType = 'xlsx'
+      outputFileName = fileName.replace(/\.(xlsx|xls)$/i, '_normalized.xlsx')
+      contentType = 'application/vnd.openpyxl-officedocument.spreadsheetml.sheet'
+    }
+    
+    let fileBuffer: Buffer
+    if (isCsv) {
+      const csvString = XLSX.utils.sheet_to_csv(newWorksheet)
+      fileBuffer = Buffer.from(csvString, 'utf-8')
+    } else {
+      fileBuffer = XLSX.write(newWorkbook, {
+        type: 'buffer',
+        bookType: bookType,
+      }) as Buffer
+    }
 
-    return new NextResponse(excelBuffer, {
+    return new NextResponse(fileBuffer as any, {
       headers: {
-        'Content-Type':
-          'application/vnd.openpyxl-officedocument.spreadsheetml.sheet',
-        'Content-Disposition': `attachment; filename="normalized.xlsx"`,
+        'Content-Type': contentType,
+        'Content-Disposition': `attachment; filename="${outputFileName}"`,
       },
     })
   } catch (error) {

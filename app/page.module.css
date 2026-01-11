@@ -210,6 +210,23 @@
   flex-wrap: wrap;
 }
 
+.emailSection {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  text-align: center;
+}
+
+.emailLink {
+  color: #000000;
+  text-decoration: none;
+  font-size: 0.9375rem;
+  transition: opacity 0.2s;
+}
+
+.emailLink:hover {
+  opacity: 0.6;
+}
+
 .previewTable {
   width: 100%;
   border-collapse: collapse;

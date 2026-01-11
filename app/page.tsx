@@ -120,7 +120,11 @@ export default function Home() {
         const url = window.URL.createObjectURL(blob)
         const a = document.createElement('a')
         a.href = url
-        a.download = `normalized_${file.name}`
+        // 서버에서 설정한 파일명 사용 (Content-Disposition 헤더에서 추출)
+        const contentDisposition = response.headers.get('content-disposition')
+        const fileNameMatch = contentDisposition?.match(/filename="(.+)"/)
+        const fileName = fileNameMatch ? fileNameMatch[1] : `normalized_${file.name}`
+        a.download = fileName
         document.body.appendChild(a)
         a.click()
         window.URL.revokeObjectURL(url)
@@ -146,7 +150,7 @@ export default function Home() {
       <div className={styles.container}>
         <h1 className={styles.title}>전화번호 통일</h1>
         <p className={styles.subtitle}>
-          엑셀 파일의 전화번호를 <strong>00000000000</strong> 또는 <strong>000-0000-0000</strong> 형식으로 통일합니다.
+          엑셀(.xlsx, .xls) 또는 CSV 파일의 전화번호를 <strong>00000000000</strong> 또는 <strong>000-0000-0000</strong> 형식으로 통일합니다.
         </p>
 
         {message && (
@@ -165,12 +169,12 @@ export default function Home() {
             <input
               id="file-input"
               type="file"
-              accept=".xlsx,.xls"
+              accept=".xlsx,.xls,.csv"
               onChange={handleFileChange}
               className={styles.fileInput}
             />
-            <p className={styles.uploadText}>엑셀 파일을 선택하거나 드래그하세요</p>
-            <p className={styles.uploadSubtext}>(.xlsx, .xls)</p>
+            <p className={styles.uploadText}>파일을 선택하거나 드래그하세요</p>
+            <p className={styles.uploadSubtext}>(.xlsx, .xls, .csv)</p>
           </div>
         </div>
 
@@ -301,6 +305,11 @@ export default function Home() {
             className={`${styles.button} ${styles.buttonLink}`}
           >
             개발자 커피 한잔 사주기
+          </a>
+        </div>
+        <div className={styles.emailSection}>
+          <a href="mailto:mhoo999@naver.com" className={styles.emailLink}>
+            mhoo999@naver.com
           </a>
         </div>
       </div>

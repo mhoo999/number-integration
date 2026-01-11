@@ -290,27 +290,27 @@ export default function Home() {
         )}
 
         <div className={styles.footerSection}>
-          <a
-            href="https://hoons-service-archive.vercel.app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`${styles.button} ${styles.buttonLink}`}
-          >
-            다른 서비스 이용해보기
-          </a>
-          <a
-            href="https://need-coffee.vercel.app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`${styles.button} ${styles.buttonLink}`}
-          >
-            개발자 커피 한잔 사주기
-          </a>
-        </div>
-        <div className={styles.emailSection}>
-          <a href="mailto:mhoo999@naver.com" className={styles.emailLink}>
+          <div className={styles.buttonGroup}>
+            <a
+              href="https://hoons-service-archive.vercel.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${styles.button} ${styles.buttonLink}`}
+            >
+              다른 서비스 이용해보기
+            </a>
+            <a
+              href="https://need-coffee.vercel.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${styles.button} ${styles.buttonLink}`}
+            >
+              개발자 커피 한잔 사주기
+            </a>
+          </div>
+          <div className={styles.emailSection}>
             mhoo999@naver.com
-          </a>
+          </div>
         </div>
       </div>
     </main>

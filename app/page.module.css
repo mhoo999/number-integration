@@ -198,33 +198,27 @@
 .buttonLink {
   text-decoration: none;
   display: inline-block;
-  margin-right: 1rem;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
 }
 
 .footerSection {
   margin-top: 3rem;
   padding-top: 2.5rem;
+  padding-bottom: 1rem;
   border-top: 1px solid #e5e5e5;
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.emailSection {
-  margin-top: 2rem;
-  padding-top: 1.5rem;
   text-align: center;
 }
 
-.emailLink {
-  color: #000000;
-  text-decoration: none;
-  font-size: 0.9375rem;
-  transition: opacity 0.2s;
-}
-
-.emailLink:hover {
-  opacity: 0.6;
+.emailSection {
+  color: #666666;
+  font-size: 0.875rem;
 }
 
 .previewTable {

@@ -148,7 +148,7 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <div className={styles.container}>
-        <h1 className={styles.title}>전화번호 통일</h1>
+        <h1 className={styles.title}>전화번호 형식 통일 서비스</h1>
         <p className={styles.subtitle}>
           엑셀(.xlsx, .xls) 또는 CSV 파일의 전화번호를 <strong>00000000000</strong> 또는 <strong>000-0000-0000</strong> 형식으로 통일합니다.
         </p>

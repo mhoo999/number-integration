@@ -195,6 +195,21 @@
   background-color: #333333;
 }
 
+.buttonLink {
+  text-decoration: none;
+  display: inline-block;
+  margin-right: 1rem;
+}
+
+.footerSection {
+  margin-top: 3rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid #e5e5e5;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
 .previewTable {
   width: 100%;
   border-collapse: collapse;
@@ -238,5 +253,14 @@
   .radioGroup {
     flex-direction: column;
     gap: 1rem;
+  }
+
+  .footerSection {
+    flex-direction: column;
+  }
+
+  .footerSection .button {
+    width: 100%;
+    margin-right: 0;
   }
 }

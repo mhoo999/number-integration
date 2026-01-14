@@ -300,7 +300,7 @@ export default function Home() {
               다른 서비스 이용해보기
             </a>
             <a
-              href="https://need-coffee.vercel.app"
+              href="https://hoons-service-archive.vercel.app/#coffee"
               target="_blank"
               rel="noopener noreferrer"
               className={`${styles.button} ${styles.buttonLink}`}

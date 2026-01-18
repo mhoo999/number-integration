@@ -20,6 +20,8 @@ export default function RootLayout({
           crossOrigin="anonymous"
           href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
         />
+        <link rel="stylesheet" href="https://hoons-service-footer.vercel.app/footer.css" />
+        <script src="https://hoons-service-footer.vercel.app/footer.js"></script>
       </head>
       <body>{children}</body>
     </html>

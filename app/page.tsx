@@ -289,29 +289,7 @@ export default function Home() {
           </>
         )}
 
-        <div className={styles.footerSection}>
-          <div className={styles.buttonGroup}>
-            <a
-              href="https://hoons-service-archive.vercel.app"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`${styles.button} ${styles.buttonLink}`}
-            >
-              다른 서비스 이용해보기
-            </a>
-            <a
-              href="https://hoons-service-archive.vercel.app/#coffee"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`${styles.button} ${styles.buttonLink}`}
-            >
-              개발자 커피 한잔 사주기
-            </a>
-          </div>
-          <div className={styles.emailSection}>
-            mhoo999@naver.com
-          </div>
-        </div>
+        <div id="hoons-footer"></div>
       </div>
     </main>
   )
